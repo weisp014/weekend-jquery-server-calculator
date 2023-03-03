@@ -6,6 +6,13 @@ const PORT = 8000;
 app.use(express.static('server/public'));
 app.use(bodyParser.urlencoded({extended: true}));
 
+//array of all historical calculations
+let history = [
+    {
+        
+    }
+];
+
 //start listening
 app.listen(PORT, () => {
     console.log('server running on port', PORT);
