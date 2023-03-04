@@ -1,12 +1,24 @@
 $(document).ready(onReady);
 
+//keep track of operator clicked
+let lastOperatorClicked = 0;
+
 function onReady() {
     console.log('jquery loaded');
     getCalculation();
 
-    //TODO add listener for opButtons
-    //$('#opButton').on('click', buttonClick);
-    //TODO add listener for submit '=' button
+    //listener for opButtons
+    $('.opButton').on('click', operatorClicked);
+    //listener for submit '=' button
+    $('#equalButton').on('click', sendCalculation);
+    //TODO listener for clear button
+}
+
+//save which operator was clicked
+function operatorClicked() {
+    console.log('in operatorClicked');
+    lastOperatorClicked = $(this).text();
+    //console.log(lastOperatorClicked);
 }
 
 //GET
@@ -43,3 +55,25 @@ function render(response) {
 }
 
 //TODO POST
+function sendCalculation() {
+    console.log('in sendCalculation()');
+    let newCalculation = {};
+    //get values from input fields
+    newCalculation.num1 = $('#number1').val();
+    newCalculation.num2 = $('#number2').val();
+    newCalculation.operator = lastOperatorClicked;
+    //reset lastOperatorClicked;
+    lastOperatorClicked = 0;
+    console.log(newCalculation);
+    $.ajax({
+        method: 'POST',
+        url: '/calculation',
+        data: newCalculation
+    }).then((response) => {
+        console.log('success', response);
+        //get history of calculations from server
+        getCalculation();
+    }).catch((response) => {
+        alert('request failed');
+    })
+}
