@@ -30,33 +30,36 @@ app.listen(PORT, () => {
 //TODO calculate and return result from incoming calculation
 function computeResult(equation) {
     console.log('in computeResult()');
-    let result = 0;
+    let newResult = 0;
     let operation = equation.operator;
     //check operator and calculate result
     switch (operation) {
         case '+':
             console.log('addition detected');
-            result = (Number(equation.num1) + Number(equation.num2));
-            console.log(result);
+            newResult = (Number(equation.num1) + Number(equation.num2));
+            console.log(newResult);
             break
         case '-':
             console.log('subtraction detected');
-            result = (Number(equation.num1) - Number(equation.num2));
-            console.log(result);
+            newResult = (Number(equation.num1) - Number(equation.num2));
+            console.log(newResult);
             break
         case '*':
             console.log('multiplication detected');
-            result = (Number(equation.num1) * Number(equation.num2));
-            console.log(result);
+            newResult = (Number(equation.num1) * Number(equation.num2));
+            console.log(newResult);
             break
         case '/':
             console.log('division detected');
-            result = (Number(equation.num1) / Number(equation.num2));
-            console.log(result);
+            newResult = (Number(equation.num1) / Number(equation.num2));
+            console.log(newResult);
             break
         default:
             console.log('Error: unexpected operator');
     }
+    equation.result = newResult;
+    console.log('equation', equation);
+    return equation;
 }
 
 //routes
@@ -75,11 +78,8 @@ app.post('/calculation', (req, res) => {
     //grab new calculation from request body
     let newCalculation = req.body;
 
-    //calculate result and add as new property
-    newCalculation.result = computeResult(newCalculation);
-
-    //add to the history array
-    history.push(newCalculation);
+    //calculate result and add new calculation to history array
+    history.push(computeResult(newCalculation));
 
     //send back status code
     res.sendStatus(201);
