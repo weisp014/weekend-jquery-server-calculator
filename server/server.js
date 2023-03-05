@@ -65,7 +65,7 @@ app.get('/calculation', (req, res) => {
     res.send(history);
 });
 
-//TODO POST
+//POST
 app.post('/calculation', (req, res) => {
     console.log('Get a POST request', req.body);
 

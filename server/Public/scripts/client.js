@@ -11,7 +11,15 @@ function onReady() {
     $('.opButton').on('click', operatorClicked);
     //listener for submit '=' button
     $('#equalButton').on('click', sendCalculation);
-    //TODO listener for clear button
+    //listener for clear button
+    $('#clearButton').on('click', clearInputs);
+}
+
+//clear inputs
+function clearInputs() {
+    $('#number1').val('');
+    $('#number2').val('');
+    lastOperatorClicked = 0;
 }
 
 //save which operator was clicked
@@ -64,8 +72,6 @@ function sendCalculation() {
 
     //check if all values are filled in before sending to server
     if (newCalculation.num1 && newCalculation.num2 && newCalculation.operator) {
-        //reset lastOperatorClicked;
-        lastOperatorClicked = 0;
         console.log(newCalculation);
         $.ajax({
             method: 'POST',
