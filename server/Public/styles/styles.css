@@ -1,0 +1,20 @@
+.opButton {
+    padding: 10px;
+}
+
+.inputs {
+    padding: 10px;
+}
+
+#equalButton, #clearButton {
+    padding: 10px;
+}
+
+#answerHere {
+    margin-left: 50px;
+    font-size: 48px;
+}
+
+#historyHere {
+    font-size: 24px;
+}
