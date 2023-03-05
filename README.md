@@ -1,9 +1,16 @@
 # Project Name
-
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+Server Calculator
 
 ## Description
+_Duration: Weekend Sprint_
 
-Your project description goes here. What problem did you solve? How did you solve it?
+This calculator will perform an operation on 2 numbers and return the result. The history of all calculations are saved on a server so that even if the browser is refreshed the history is still shown on the DOM.
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+### Prerequisites
+
+Link to software that is required to install the app.
+
+- [Node.js](https://nodejs.org/en/)
+
+## Screen Shot
+(images/calculator_image.jpg)
