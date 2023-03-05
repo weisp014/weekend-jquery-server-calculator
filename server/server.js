@@ -8,18 +8,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //array of all historical calculations
 let history = [
-    {
-        num1: 5,
-        num2: 8,
-        operator: '+',
-        result: 13,
-    },
-    {
-        num1: 4,
-        num2: 8,
-        operator: '+',
-        result: 12,
-    }
+    // { Example:
+    //     num1: 5,
+    //     num2: 8,
+    //     operator: '+',
+    //     result: 13,
+    // }
 ];
 
 //start listening
@@ -27,7 +21,7 @@ app.listen(PORT, () => {
     console.log('server running on port', PORT);
 });
 
-//TODO calculate and return result from incoming calculation
+//calculate and return result from incoming calculation
 function computeResult(equation) {
     console.log('in computeResult()');
     let newResult = 0;

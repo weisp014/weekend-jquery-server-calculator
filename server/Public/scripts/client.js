@@ -18,7 +18,6 @@ function onReady() {
 function operatorClicked() {
     console.log('in operatorClicked');
     lastOperatorClicked = $(this).text();
-    //console.log(lastOperatorClicked);
 }
 
 //GET
@@ -27,12 +26,12 @@ function getCalculation() {
         url: '/calculation',
         method: 'GET'
     })
-    .then((response) => {
-        console.log('calculation history', response);
-        render(response);
-    }).catch((response) => {
-        alert('request failed');
-    });
+        .then((response) => {
+            console.log('calculation history', response);
+            render(response);
+        }).catch((response) => {
+            alert('request failed');
+        });
 }
 
 function render(response) {
@@ -40,21 +39,21 @@ function render(response) {
     //empty history elements
     $('#historyHere').empty();
     //cycle through all historical calculations and append to DOM
-    for (let i=0; i < response.length; i++) {
+    for (let i = 0; i < response.length; i++) {
         let result = "";
         result = response[i].num1 + response[i].operator + response[i].num2 + '=' + response[i].result
         $('#historyHere').append(`
         <li>${result}</li>
         `)
         //display last answer on DOM
-        if(i === (response.length-1)) {
+        if (i === (response.length - 1)) {
             $('#answerHere').empty();
             $('#answerHere').append(response[i].result);
         }
     }
 }
 
-//TODO POST
+//POST
 function sendCalculation() {
     console.log('in sendCalculation()');
     let newCalculation = {};
@@ -62,18 +61,24 @@ function sendCalculation() {
     newCalculation.num1 = $('#number1').val();
     newCalculation.num2 = $('#number2').val();
     newCalculation.operator = lastOperatorClicked;
-    //reset lastOperatorClicked;
-    lastOperatorClicked = 0;
-    console.log(newCalculation);
-    $.ajax({
-        method: 'POST',
-        url: '/calculation',
-        data: newCalculation
-    }).then((response) => {
-        console.log('success', response);
-        //get history of calculations from server
-        getCalculation();
-    }).catch((response) => {
-        alert('request failed');
-    })
+
+    //check if all values are filled in before sending to server
+    if (newCalculation.num1 && newCalculation.num2 && newCalculation.operator) {
+        //reset lastOperatorClicked;
+        lastOperatorClicked = 0;
+        console.log(newCalculation);
+        $.ajax({
+            method: 'POST',
+            url: '/calculation',
+            data: newCalculation
+        }).then((response) => {
+            console.log('success', response);
+            //get history of calculations from server
+            getCalculation();
+        }).catch((response) => {
+            alert('request failed');
+        })
+    } else {
+        alert('Not all inputs and operator filled in!');
+    }
 }
